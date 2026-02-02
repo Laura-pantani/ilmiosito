@@ -1,3 +1,3 @@
 # ilmiosito
 seminario introduttivo esercizi 
-- [giorno 1]
+- [ giorno 1 ]
