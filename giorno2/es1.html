@@ -17,14 +17,20 @@
             
             function draw() {
                 background(200, 200, 200);
-                
                 noStroke()
                 fill(255, 0, 0);
+let numH = 30;
+let numV = 30;
+let w = width / numH;
+let h = height / numV;
+let d = 10;
+
 
                 for (let i = 0; i <25; i++) {
                     for (let j = 0; j < 25; j++) {
                         fill(i * 10, j * 10, 0)
-                    circle(10 + 1 * 10, 10, 6)
+
+                    circle(10 + i * 20, 10 + j * 20, 6)
                 }
                 }
             }

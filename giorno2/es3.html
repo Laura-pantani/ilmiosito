@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizzatore OBJ Corretto</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+  <style>
+    
+    body { margin: 0; padding: 0; overflow: hidden; background-color: #ffcce5; } /* Rosa di backup */
+    
+    /* Il video riempie tutta la pagina dietro al canvas */
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 50%;
+      min-height: 50%;
+      z-index: -1; /* Lo mette dietro a tutto */
+      object-fit: cover;
+      
+    }
+
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="181333-866112969_small.mp4" type="video/mp4">
+  </video>
+
+  </style>
+</head>
+<body>
+
+<script>
+let modello;
+let textureImmagine;
+
+function preload() {
+  // 1. Carica il modello
+  modello = loadModel('ioblend.obj', true);
+  
+  // 2. Carica la texture (se hai un file .jpg o .png)
+  // Se non hai una texture, commenta la riga sotto
+  textureImmagine = loadImage('Scaniverse_2026_02_03_114159.jpg');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+}
+
+function draw() {
+  
+
+  // Luci per lo Shading (fondamentali per vedere la forma)
+  ambientLight(100);
+  directionalLight(255, 255, 255, 0, 1, -1);
+  pointLight(255, 255, 255, 200, -200, 300);
+
+  // --- CONTROLLO ROTAZIONE ---
+  let rotY = map(frameCount, 0, width, -PI, PI);
+  rotateY(rotY);
+
+  // --- CORREZIONE ORIENTAMENTO (Sottosopra) ---
+  // Ruotiamo di 180 gradi (PI) sull'asse Z o X per raddrizzarlo
+  rotateZ(PI); 
+  // Se è ancora strano, prova a commentare rotateZ e usare:
+  // rotateX(PI);
+  scale(3)
+
+  // --- MATERIALE E TEXTURE ---
+  push();
+  noStroke();
+  
+  if (textureImmagine) {
+    texture(textureImmagine); ('Scaniverse_2026_02_03_114159.jpg')
+  } else {
+    // Se non c'è texture, diamo un colore e uno shading definito
+    specularMaterial(100); // Bianco che riflette le luci
+    shininess(5);
+  }
+
+  model(modello);
+  pop();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+
+</body>
+</html>
