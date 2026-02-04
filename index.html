@@ -3,150 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAP
-
-    </title>
-</head>
-
-
-   <style>
+    <title>LAP PORTFOLIO</title>
+    <body>
+    <style>
         body {
-            /* Sostituisci 'tuo-percorso/immagine.jpg' con il link o il nome del file */
-            background-image: url('giorno1/20220701_103241.jpg');
+            /* --- SFONDO --- */
+            /* Sostituisci 'sfondo.jpg' con il percorso della tua immagine (es. 'immagini/sfondo.jpg') */
+            background-image: url('sfondo.jpg');
+            background-size: cover; /* L'immagine copre tutto lo sfondo */
+            background-position: center; /* Centra l'immagine */
+            background-attachment: fixed; /* Lo sfondo resta fermo quando scorri */
+            background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
 
-            /* Centra l'immagine */
-            background-position: center;
-
-            /* Impedisce all'immagine di ripetersi come un mosaico */
-            background-repeat: no-repeat;
-
-            /* Fa sì che lo sfondo rimanga fisso mentre scrolli */
-            background-attachment: fixed;
-
-            /* Forza l'immagine a coprire l'intera area disponibile */
-            background-size: cover;
-
-            /* Colore di riserva nel caso l'immagine non carichi */
-            background-color: #333;
-            
-            /* Reset dei margini per evitare bordi bianchi */
-            margin: 0;
-            padding: 0;
-
+            background-color: #333; /* Colore di fallback se l'immagine non si carica */
             color: rgb(255, 255, 255);
-            font-family: Arial, Helvetica, sans-serif;block-size: auto;
-            font-size: 15px;
-            margin: 100px;
-        }
-        h1 {
-            font-size: 50px;
-            position:absolute; 
-            top: 71px;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Evita scroll laterale */
+            margin: 0; /* Rimuove i margini di default */
         }
         
-        p{
-            position: absolute;
-            top: 44%;
-            left: 52%;
-            display: inline;
-        }
-        text{
-            position: absolute;
-            top: 85%;
-            left: 20%;
-        }
-        h4{
-            position: absolute;
-            top: 150px;
-            font-weight: lighter;
-        }
+        /* Posizionamento contenuti */
+        h1 { font-size: 50px; position: absolute; top:50px; width: 100%; text-align: center; left: 0; color: aliceblue; font-weight: bolder; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);}
+        h4 { position: absolute; top: 150px; width: 100%; text-align: center; left: 0; font-weight: lighter; color: aliceblue; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);}
+        
+        /* Ho usato delle classi per posizionare i link, è più sicuro */
+        .link-pos-1 { position: absolute; top: 43%; left: 30%;}
+        .link-pos-2 { position: absolute; top: 83%; left: 9%;}
+        .link-pos-3 { font-size: 17px; position: absolute; top: 77%; left: 77%; font-weight: lighter;}
+        .link-pos-4 { position: absolute; top: 73%; left: 50% }
+        .link-pos-5 { position: absolute; top: 37%; left: 80% }
 
-        h5{
-            position: absolute;
-            top: 72%;
-            left: 70%;
-            font-weight: lighter;
-            font-size: 15px;
-    
+        .link-esercizio {
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         }
         .social-links {
-            color: rgb(248, 151, 240);
-        
-            font-weight: bold;
-           position: relative; 
-           margin-left: 90%;
-           height: 95%;
-            
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            text-align: right;
         }
-
-        
-    </style>   
-    <style>
-        .gif-container {
-            display: flex;
-            justify-content: center; /* Centra orizzontalmente */
-            padding: 20px;
-        }
-        div{
-            height: 100px;
-        }
-        .responsive-gif {
-            max-width: 100%;    /* La GIF non sarà mai più larga dello schermo */
-            height: auto;       /* Mantiene le proporzioni corrette */
-            border-radius: 10px; /* Opzionale: arrotonda gli angoli */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Opzionale: aggiunge un'ombra */
-        }
-    </style>
-    <body>
-        
-    <div class="gif-container">
-        <img style="left: 50%; top: 30%; position: absolute; height: 100px;"src="giorno1/I Love You Heart Sticker by Simon Falk.gif" 
-             alt="Esempio GIF" 
-             class="responsive-gif">
-             
-             
-    </div>
-    <div class="gif-container">
-        <img style="left: 20%; top: 70%; position: absolute; height: 100px;"src="giorno1/Sticker 3D Sticker by Simon Falk.gif" 
-             alt="Esempio GIF" 
-             class="responsive-gif">     
-    </div>
-
-     <div class="gif-container">
-        <img style="left: 70%; top: 60%; position: absolute; height: 100px;"src="giorno1/St Patricks Day Art Sticker by Simon Falk.gif" 
-             alt="Esempio GIF" 
-             class="responsive-gif">     
-    </div>
-
-</body>
-
+        .social-links a { color: rgb(0, 166, 255); text-decoration: none; font-weight: bold; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+        </style>
+</head>
 <body>
-       <h1>LAP PORTFOLIO</h1> 
-       <p> 
-        [esercizio 01] 
-       </p> 
-        
-       <text>
-        [esercizio 02]
-       </text>
 
-       <h5>
-        esercizio 03
-       </h5>
+    <h1>welcome to my laboratory</h1> 
+    <h4>Questo é il sito di Laura Pantani, <br> 
+        Esercizi di programmazione di laboratorio:</h4> 
 
-      <h4>Questo é il sito di Laura Pantani, <br> 
-        ho 22 anni, studio comunicazione visiva, <br> 
-        vivo a chiasso in Svizzera. Parlo italiano <br>
-        e inglese. <br>
-        <br>
-        Questi sono gli esercizi del seminario <br>introdutivo di codice.
-        </h4> 
+    <p class="link-pos-1"> 
+        <a class="link-esercizio" target="_blank" href="giorno2/es1.html">esercizio 01</a>
+    </p> 
 
-       <div class="social-links">
+    <p class="link-pos-2">
+        <a class="link-esercizio" target="_blank" href="giorno2/es2.html">esercizio 02</a>
+    </p>
+
+<p class="link-pos-4">
+        <a class="link-esercizio" target="_blank" href="giorno3/index.html">esercizio 04</a>
+    </p>
+
+    <h5 class="link-pos-3">
+        <a class="link-esercizio" target="_blank" href="giorno2/es3.html">esercizio 03</a>
+    </h5>
+
+     <p class="link-pos-5">
+        <a class="link-esercizio" target="_blank" href="giorno2/es3.html">esercizio 05</a>
+     </p>
+
+    <div class="social-links">
         <a target="_blank" href="https://www.instagram.com/pantani_laura/">INSTAGRAM</a> <br>
         <a target="_blank" href="https://www.reddit.com/user/trallalla_/">REDDIT</a>
     </div>
-			
-</body>
+
+    <img style="left: 30%; top: 30%; position: absolute; height: 100px;" src="giorno1/I Love You Heart Sticker by Simon Falk.gif">
+    <img style="left: 10%; top: 70%; position: absolute; height: 100px;" src="giorno1/Sticker 3D Sticker by Simon Falk.gif">
+    <img style="left: 80%; top: 65%; position: absolute; height: 100px;" src="giorno1/St Patricks Day Art Sticker by Simon Falk.gif">
+    <img style="left: 50%; top: 60%; position: absolute; height: 100px;" src="Fun Shaking Sticker by Simon Falk.gif">
+   <img style="left: 80%; top: 25%; position: absolute; height: 100px;" src="Pink Sticker Sticker by Simon Falk.gif">
     
+
+</body>
 </html>

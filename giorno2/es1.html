@@ -7,33 +7,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
 </head>
     <body>
-        <h1>ciao</h1>
-        
         <script>
             
             function setup() {
-                createCanvas(500, 500 );
+                createCanvas(windowWidth, windowHeight);
+                background(220);
+                noStroke();
             }
             
             function draw() {
-                background(200, 200, 200);
-                noStroke()
-                fill(255, 0, 0);
-let numH = 30;
-let numV = 30;
-let w = width / numH;
-let h = height / numV;
-let d = 10;
+                let r = map(mouseX, 0, width, 50, 255);
+                let b = map(mouseY, 0, height, 255, 50);
+                
+                fill(random(255), random(255), random(255)); 
+                
 
-
-                for (let i = 0; i <25; i++) {
-                    for (let j = 0; j < 25; j++) {
-                        fill(i * 10, j * 10, 0)
-
-                    circle(10 + i * 20, 10 + j * 20, 6)
-                }
-                }
+                circle(mouseX, mouseY, 50);
             }
+
+            
+            
         </script>
             
     </body>
