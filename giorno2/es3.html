@@ -11,10 +11,10 @@
     /* Il video riempie tutta la pagina dietro al canvas */
     #bg-video {
       position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 50%;
-      min-height: 50%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1; /* Lo mette dietro a tutto */
       object-fit: cover;
       
@@ -51,7 +51,7 @@ function setup() {
 }
 
 function draw() {
-  
+  clear();
 
   // Luci per lo Shading (fondamentali per vedere la forma)
   ambientLight(100);
@@ -59,8 +59,12 @@ function draw() {
   pointLight(255, 255, 255, 200, -200, 300);
 
   // --- CONTROLLO ROTAZIONE ---
+  let rotX = map(frameCount, 0, width, -PI, PI);
+  rotateX(rotX);
   let rotY = map(frameCount, 0, width, -PI, PI);
   rotateY(rotY);
+  let rotZ = map(frameCount, 0, width, -PI, PI);
+  rotateZ(rotZ);
 
   // --- CORREZIONE ORIENTAMENTO (Sottosopra) ---
   // Ruotiamo di 180 gradi (PI) sull'asse Z o X per raddrizzarlo

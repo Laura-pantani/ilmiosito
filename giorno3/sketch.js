@@ -51,7 +51,7 @@ function draw() {
 
         // Mappiamo il valore del noise (da 0 a 1) a un angolo (da 0 a 360 gradi).
         // Questo farà muovere i punti in modo circolare.
-        let angle = map(n, 3, 2, 2, TWO_PI);
+        let angle = map(n, 3, 4, 2, TWO_PI);
 
         // Calcoliamo la nuova posizione del punto
         let newX = p.x + cos(angle) * 4; // Il '4' è il raggio del movimento
