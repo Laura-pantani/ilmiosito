@@ -15,7 +15,7 @@ function setup() {
     card.style('background-color', 'rgba(40, 40, 40, 0.7)');
     card.style('padding', '15px');
     card.style('border-radius', '10px');
-    card.style('width', '220px');
+    card.style('width', '150px');
     card.style('font-family', 'Arial, sans-serif');
     card.style('color', 'white');
 
