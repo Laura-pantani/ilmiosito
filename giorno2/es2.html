@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>noise me</title>
 	<style>
 		body {
 			background-color: black;
@@ -15,9 +15,11 @@
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/addons/p5.dom.min.js"></script>
 	<script>
 
 		let faccione
+		let sliderSize, sliderNoiseScale, sliderDistortion;
 
 		function preload() {
 			faccione = loadImage('gaga.png')
@@ -33,12 +35,35 @@
 			} else {
 				faccione.resize(width / 8, 0)
 			}
+
+			// --- CREAZIONE CARD DI CONTROLLO ---
+			let card = createDiv('');
+			card.position(10, 120);
+			card.style('background-color', 'rgba(40, 40, 40, 0.7)');
+			card.style('padding', '15px');
+			card.style('border-radius', '10px');
+			card.style('width', '150px');
+			card.style('font-family', 'Arial, sans-serif');
+			card.style('color', 'white');
+
+			createP('Grandezza Pallini:').parent(card).style('margin', '0 0 5px 0');
+			sliderSize = createSlider(0.01, 0.3, 0.1, 0.01).parent(card);
+
+			createP('Scala Noise:').parent(card).style('margin', '15px 0 5px 0');
+			sliderNoiseScale = createSlider(0.005, 0.1, 0.02, 0.001).parent(card);
+
+			createP('Max Distorsione:').parent(card).style('margin', '15px 0 5px 0');
+			sliderDistortion = createSlider(0, 400, 200, 10).parent(card);
 		}
 
 		function draw(){
 			// sfondo nero
 			background(0)
 			noStroke()
+
+			let sizeMult = sliderSize.value();
+			let nScale = sliderNoiseScale.value();
+			let maxDist = sliderDistortion.value();
 
 			let numH = faccione.width
 			let numV = faccione.height
@@ -49,7 +74,7 @@
 			// Calcola la distanza del mouse dal centro dello schermo
 			let distanzaCentro = dist(mouseX, mouseY, width / 2, height / 2)
 			// Più sei vicino al centro (0), più alto è l'effetto (200). Ai bordi diventa 0.
-			let amount = map(distanzaCentro, 0, width / 2, 200, 0, true)
+			let amount = map(distanzaCentro, 0, width / 2, maxDist, 0, true)
 
 			let ny = frameCount * 0.002
 			let nx = frameCount * 0.002
@@ -62,9 +87,9 @@
 					if (al < 200) continue
 					let br = brightness(col)
 					fill (col)
-					let px = ox + i * d + map(noise( i * 0.02 + nx, j * 0.02 + ny, nz), 0, 1, -amount, amount)
-					let py = oy + j * d + map(noise( i * 0.02 + nx, j * 0.02 + ny, nz + 2), 0, 1, -amount, amount)
-					circle(px, py, br * 0.1)
+					let px = ox + i * d + map(noise( i * nScale + nx, j * nScale + ny, nz), 0, 1, -amount, amount)
+					let py = oy + j * d + map(noise( i * nScale + nx, j * nScale + ny, nz + 2), 0, 1, -amount, amount)
+					circle(px, py, br * sizeMult)
 				}
 			}
 // noise:  

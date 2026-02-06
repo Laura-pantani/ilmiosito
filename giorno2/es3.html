@@ -21,21 +21,35 @@
     }
 
     canvas { display: block; }
+
+    #titolo {
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8vw; /* Dimensione reattiva basata sulla larghezza della finestra */
+      font-weight: normal;
+      color: rgba(252, 109, 226, 0.454);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      pointer-events: none; /* Permette di cliccare attraverso la scritta */
+    }
   </style>
 </head>
 <body>
+
+  <div id="titolo">save me</div>
 
   <video autoplay muted loop id="bg-video">
     <source src="181333-866112969_small.mp4" type="video/mp4">
   </video>
 
-  </style>
-</head>
-<body>
-
 <script>
 let modello;
 let textureImmagine;
+let scalaSoggetto = 3;
+let posX = 0;
+let posY = 0;
 
 function preload() {
   // 1. Carica il modello
@@ -58,6 +72,18 @@ function draw() {
   directionalLight(255, 255, 255, 0, 1, -1);
   pointLight(255, 255, 255, 200, -200, 300);
 
+  // --- TRASCINAMENTO ---
+  if (mouseIsPressed) {
+    posX += movedX;
+    posY += movedY;
+  }
+  translate(posX, posY, 0);
+
+  // --- RIMPICCIOLIMENTO ---
+  if (!mouseIsPressed && scalaSoggetto > 0) {
+    scalaSoggetto -= 0.005;
+  }
+
   // --- CONTROLLO ROTAZIONE ---
   let rotX = map(frameCount, 0, width, -PI, PI);
   rotateX(rotX);
@@ -71,7 +97,7 @@ function draw() {
   rotateZ(PI); 
   // Se è ancora strano, prova a commentare rotateZ e usare:
   // rotateX(PI);
-  scale(3)
+  scale(scalaSoggetto);
 
   // --- MATERIALE E TEXTURE ---
   push();
@@ -91,6 +117,19 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+// --- CAMBIO TESTO ---
+function keyPressed() {
+  // Se viene premuto il tasto 't'
+  if (key === 't' || key === 'T') {
+    let elementoTitolo = document.getElementById('titolo');
+    let testoCorrente = elementoTitolo.innerText;
+    let nuovoTesto = prompt("Scrivi la nuova frase:", testoCorrente);
+    if (nuovoTesto !== null && nuovoTesto.trim() !== "") {
+      elementoTitolo.innerText = nuovoTesto;
+    }
+  }
 }
 </script>
 

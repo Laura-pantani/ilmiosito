@@ -1,14 +1,50 @@
 // Variabili globali per i punti
 let points = [];
+let parola = "LAP";
+
+// Variabili per la UI
+let inputParola;
+let sliderDensita, sliderRaggio, sliderForza;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+
+    // --- CREAZIONE CARD DI CONTROLLO ---
+    let card = createDiv('');
+    card.position(20, 20);
+    card.style('background-color', 'rgba(40, 40, 40, 0.7)');
+    card.style('padding', '15px');
+    card.style('border-radius', '10px');
+    card.style('width', '220px');
+    card.style('font-family', 'Arial, sans-serif');
+    card.style('color', 'white');
+
+    // Input per la parola
+    createP('Parola:').parent(card).style('margin', '0 0 5px 0');
+    inputParola = createInput(parola).parent(card);
+    inputParola.input(() => {
+        parola = inputParola.value();
+        calcolaPunti();
+    });
+
+    // Slider per la densità
+    createP('Densità Punti:').parent(card).style('margin', '15px 0 5px 0');
+    sliderDensita = createSlider(2, 20, 9, 1).parent(card); // min, max, start, step
+    sliderDensita.input(calcolaPunti); // Ricalcola i punti quando cambia la densità
+
+    // Slider per il raggio del mouse
+    createP('Raggio Mouse:').parent(card).style('margin', '15px 0 5px 0');
+    sliderRaggio = createSlider(50, 300, 100, 1).parent(card);
+
+    // Slider per la forza di repulsione
+    createP('Forza Repulsione:').parent(card).style('margin', '15px 0 5px 0');
+    sliderForza = createSlider(5, 50, 20, 1).parent(card);
+
     calcolaPunti();
-    color: '#be3886';
 }
 
 function calcolaPunti() {
-    points = [9]; // Svuota l'array dei punti
+    points = []; // Svuota l'array
     // Creiamo un buffer grafico temporaneo per disegnare il testo con un font di sistema
     let pg = createGraphics(width, height);
     pg.pixelDensity(1);
@@ -17,14 +53,23 @@ function calcolaPunti() {
 
     pg.textFont('Arial'); // Usa il font di sistema Arial
     pg.textStyle(BOLD);
-    pg.textSize(500);
+    
+    // Calcolo dimensione dinamica per adattarsi alla pagina
+    pg.textSize(100); // Dimensione base per il calcolo
+    let textW = pg.textWidth(parola);
+    let fontSize = (width * 0.8 / textW) * 100; // Scala per occupare l'80% della larghezza
+    // Limita l'altezza se necessario (per evitare che esca verticalmente)
+    if (fontSize > height * 0.8) fontSize = height * 0.8;
+    
+    pg.textSize(fontSize);
     pg.textAlign(CENTER, CENTER);
-    pg.text('LAP', width / 2, height / 2);
+    pg.text(parola, width / 2, height / 2);
 
     pg.loadPixels();
     
     // Scansioniamo i pixel per trovare dove è stato disegnato il testo
-    let step = 9; 
+    // Usa il valore dello slider se esiste, altrimenti un valore di default
+    let step = sliderDensita ? sliderDensita.value() : 9;
     for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
             // Indice del pixel (R, G, B, A)
@@ -39,7 +84,11 @@ function calcolaPunti() {
 
 function draw() {
     // Sfondo scuro (sostituisce l'immagine)
-    background(10, 10, 30);
+    background(10, 10, 10);
+
+    // Leggi i valori dagli slider ad ogni frame
+    let raggioMouse = sliderRaggio.value();
+    let forzaMassima = sliderForza.value();
 
     // Iteriamo su ogni punto che abbiamo generato
     for (let i = 0; i < points.length; i++) {
@@ -58,13 +107,12 @@ function draw() {
         let newY = p.y + sin(angle) * 10;
 
         // --- INTERAZIONE MOUSE (Repulsione) ---
-        let d = dist(mouseX, mouseY, p.x, p.y);
-        let raggio = 100; // Raggio d'azione del mouse
+        let d = dist(mouseX, mouseY, newX, newY);
 
-        if (d < raggio) {
-            // Calcoliamo quanto spostare il punto (più è vicino, più si sposta)
-            let forza = map(d, 10, raggio, 10, 20);
-            let angoloMouse = atan2(p.y - mouseY, p.x - mouseX);
+        if (d < raggioMouse) {
+            // Calcoliamo la forza (più è vicino, più è forte)
+            let forza = map(d, 0, raggioMouse, forzaMassima, 0);
+            let angoloMouse = atan2(newY - mouseY, newX - mouseX);
             
             newX += cos(angoloMouse) * forza;
             newY += sin(angoloMouse) * forza;
@@ -76,9 +124,10 @@ function draw() {
         let b = 200;
 
         // Se il mouse è vicino, accendiamo i colori (effetto "calore")
-        if (d < raggio) {
+        if (d < raggioMouse) {
             
         }
+        
 
         // Al posto dei punti, disegniamo dei cerchietti variabili ("bolle")
         noStroke();
